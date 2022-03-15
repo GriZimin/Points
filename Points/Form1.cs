@@ -9,7 +9,7 @@ namespace Points
         {
             InitializeComponent();
             g = CreateGraphics();
-            frame = new Bitmap(Width , Height);
+            frame = new Bitmap(Width - 16 , Height - 38);
             gf = Graphics.FromImage(frame);
         }
 
@@ -29,9 +29,12 @@ namespace Points
 
         public void Render()
         {
-            foreach (Agent agent in om.agents ) agent.Step();
+            
             gf.Clear(Color.Black);
+            foreach (Agent agent in om.agents) agent.Step();
             foreach (Agent agent in om.agents) agent.Render();
+            g.FillEllipse(new SolidBrush (Color.OrangeRed),new RectangleF(om.p1.X-10,om.p1.Y-10,20,20));
+            g.FillEllipse(new SolidBrush (Color.LightBlue),new RectangleF(om.p2.X-10,om.p2.Y-10,20,20));            
             g.DrawImage(frame, 0, 0);
         }
         
